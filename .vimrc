@@ -29,12 +29,21 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 set cursorline
 set ignorecase " to search shit with case insensitive
 set smartcase " can still have sensitive search if use uppercase letters
-set laststatus=2
+set laststatus=2 " always display statusline
 set mouse=a " enable mouse support
 set whichwrap=b,s,<,>,[,] " traverse line breaks
 set guifont=Fira\ Mono\ for\ Powerline\ Regular\ 14
 "colorscheme darkblue
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab "" Could be used for programming...
+" set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab "" Could be used for programming...
+set tabstop=4  " 4 space tab
+set softtabstop=4  " 4 space tab
+set expandtab  " use spaces instead of tabs
+set shiftwidth=4
+set smarttab
+set modelines=1
+filetype indent on
+filetype plugin on
+set autoindent
 set t_Co=256 " for mah 256 colorrrssss
 set autochdir
 
@@ -90,6 +99,7 @@ let g:gruvbox_contrast_light = "hard"
 set background=dark   " Setting light mode
 """ THEMES:
 colorscheme gruvbox "darkblue is also cool
+" colorscheme 256-grayvim
 let g:airline_theme = "base16"
 """ NERDTREE_TOGGLE:
 map <C-n> :NERDTreeToggle<CR>
@@ -98,3 +108,11 @@ nmap <c-s> :update<CR>
 vmap <c-s> <Esc><c-s>gv
 imap <c-s> <Esc><c-s>
 """
+
+""" SCHOOL PC:
+set ttyfast  " faster redraw
+" set backspace=indent,eol,start " makes backspace delete over previous line also
+" set showcmd " show command in bottombar
+" set nocursorline " highlight current line
+" set wildmenu
+" set showmatch " highlight matching parenthesis

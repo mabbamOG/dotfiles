@@ -5,47 +5,140 @@
 " everytime an upgrade of the vim packages is performed.  It is recommended to
 " make changes after sourcing archlinux.vim since it alters the value of the
 " 'compatible' option.
-
 " This line should not be removed as it ensures that various options are
 " properly set to work with the Vim-related packages.
 runtime! archlinux.vim
 
+"""""""""""""""COMPATIBILITY:"""""""""""""""""""
 "set shell=bash
+let mapleader = " "
 set encoding=utf-8
-set t_Co=256
+set t_Co=256 " enable 256 colors
+""""""""""""""""""""""""""""""""""""""""""""""""
 
-" If you prefer the old-style vim functionalty, add 'runtime! vimrc_example.vim'
-" Or better yet, read /usr/share/vim/vim74/vimrc_example.vim or the vim manual
-" and configure vim to your own liking!
+"""""""""""""""""FUNCTIONALITY:"""""""""""""""""
+syntax enable " (on) to ignore color customization
+set number " show line numbers
+"set relativenumber " show relative line numbers
+set mouse=a " enable mouse support
+set cursorline " show horizontal highlight, also (nocursorline)
+set laststatus=2 " always display statusline
+set showmatch " highlight matching parenthe
+"" Instead of failing a command because of unsaved changes, instead raise a
+" dialogue asking if you wish to save changed files.
+set confirm 
+" set whichwrap=b,s,<,>,[,] " traverse line breaks -  useless?
+""""""""""""""""""""""""""""""""""""""""""""""""
 
-"" SOME OPTIONS I'M ENABLING FOR MYSELF.....
-syntax on
-set incsearch
-set hlsearch
-set background=dark "really needed???
-set number
-highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
-"set relativenumber
-set cursorline
+"""""""""""""""""""""SEARCH:""""""""""""""""""""
+set incsearch " search as characters are entered
+set hlsearch " highlight all searched matches
 set ignorecase " to search shit with case insensitive
 set smartcase " can still have sensitive search if use uppercase letters
-set laststatus=2 " always display statusline
-set mouse=a " enable mouse support
-set whichwrap=b,s,<,>,[,] " traverse line breaks
-set guifont=Fira\ Mono\ for\ Powerline\ Regular\ 14
-"colorscheme darkblue
-" set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab "" Could be used for programming...
-set tabstop=4  " 4 space tab
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""TABS AND SPACES:"""""""""""""""
+set expandtab  " entered tabs become spaces (softtabs)
+set tabstop=4  " tab is long 4
 set softtabstop=4  " 4 space tab
-set expandtab  " use spaces instead of tabs
-set shiftwidth=4
-set smarttab
-set modelines=1
-filetype indent on
-filetype plugin on
-set autoindent
-set t_Co=256 " for mah 256 colorrrssss
-set autochdir
+set smarttab " special case, ignore if u use all spaces
+set shiftwidth=4 " 4 space shift
+"
+set nocompatible " enable full vim, for next cmd:
+filetype indent plugin on " detect TABS/SPACES policy from file automagically
+"
+set autoindent " copy indentation from prev. line
+set smartindent " insert indentation depending on lang struct
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""THEMES:"""""""""""""""""""""
+set guifont=Fira\ Mono\ for\ Powerline\ Regular\ 14
+colorscheme gruvbox
+" colorscheme darkblue
+" colorscheme 256-grayvim
+let g:airline_theme = "base16"
+" GRUVBOX_THEME SPECIFIC:
+let g:gruvbox_contrast_dark = "hard"
+let g:gruvbox_contrast_light = "hard"
+set background=dark   " or (light)
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""AIRLINE:""""""""""""""""""""""""""
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""NERDTREE:"""""""""""""""""""""""
+map <C-n> :NERDTreeToggle<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""SAVE WITH CTRL KEY:""""""""""""""
+nmap <c-s> :update<CR>
+vmap <c-s> <Esc><c-s>gv
+imap <c-s> <Esc><c-s>
+" AN ALTERNATIVE:
+"remap <silent> <C-S>          :update<CR>
+"vnoremap <silent> <C-S>         <C-C>:update<CR>
+"inoremap <silent> <C-S>         <C-O>:update<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""MISC:"""""""""""""""""""""""""
+set ttyfast  " faster redraw?
+set showcmd " show partial command in bottom bar
+set wildmenu " better command line completion
+set autochdir " when opening a file, cd to its dir
+" set clipboard=unnamed
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""FOLDING:""""""""""""""""""""""""
+ set foldmethod=indent   " fold based on indent level
+ set foldnestmax=10      " max 10 depth
+ set foldenable          " don't fold files by default on open
+ nnoremap <space> za
+ set foldlevelstart=10    " start with fold level of 1
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""???:""""""""""""""""""""""""""
+"highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 "NeoBundle Scripts-----------------------------
 if has('vim_starting')
@@ -66,18 +159,19 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add or remove your Bundles here:
 NeoBundle 'bling/vim-airline'
-"NeoBundle 'Shougo/neosnippet.vim'
-"NeoBundle 'Shougo/neosnippet-snippets'
-"NeoBundle 'tpope/vim-fugitive'
+  "NeoBundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
-
-" You can specify revision/branch/tag.
-NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
-" MY shiiiit
+NeoBundle 'Shougo/vimshell'
 NeoBundle 'dag/vim-fish'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'sjl/badwolf'
+
+" You can specify revision/branch/tag.
+"NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
 " Required:
 call neobundle#end()
@@ -90,29 +184,3 @@ filetype plugin indent on
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
 
-""" AIRLINE:
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-""" GRUVBOX_THEME:
-let g:gruvbox_contrast_dark = "hard"
-let g:gruvbox_contrast_light = "hard"
-set background=dark   " Setting light mode
-""" THEMES:
-colorscheme gruvbox "darkblue is also cool
-" colorscheme 256-grayvim
-let g:airline_theme = "base16"
-""" NERDTREE_TOGGLE:
-map <C-n> :NERDTreeToggle<CR>
-""" SAVE WITH KEY:
-nmap <c-s> :update<CR>
-vmap <c-s> <Esc><c-s>gv
-imap <c-s> <Esc><c-s>
-"""
-
-""" SCHOOL PC:
-set ttyfast  " faster redraw
-" set backspace=indent,eol,start " makes backspace delete over previous line also
-" set showcmd " show command in bottombar
-" set nocursorline " highlight current line
-" set wildmenu
-" set showmatch " highlight matching parenthesis
